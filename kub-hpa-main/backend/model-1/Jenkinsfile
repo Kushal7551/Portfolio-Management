@@ -1,0 +1,59 @@
+pipeline {
+    environment {
+        DOCKERHUB_CRED = credentials("DockerCredentials")
+    }
+    agent any
+    tools {nodejs "NODEJS"} 
+    stages {
+        stage("Stage 1: Git Clone") {
+            steps {
+                // sh "rm -r SPE-FInal-Project"
+                // sh "git clone https://github.com/Kushal7551/SPE-FInal-Project.git"
+                git credentialsId: 'GitHub-Credentials', url: 'https://github.com/kushal7551/SPE-FInal-Project.git', branch: 'main'
+                // sh "ls"
+            }
+        }
+        stage('Stage 2 : Initialize') {
+            steps {
+                script {
+                    sh "python3 -m venv venv"
+                    // Install necessary Python packages
+                    sh ". venv/bin/activate && pip install -r backend/model-1/requirements.txt"
+                }
+            }
+        }
+        stage('Stage 3 : Load and Preprocess Data') {
+            steps {
+                script {
+                    // Run data loading script
+                    sh ". venv/bin/activate && python3 backend/model-1/data_loading.py"
+                }
+            }
+        }
+        stage('Stage 4 :Train Model') {
+            steps {
+                script {
+                    // Run model training script
+                    sh ". venv/bin/activate && python3 backend/model-1/model_training.py"
+                }
+            }
+        }
+        stage('Stage 5 : Evaluate Model') {
+            steps {
+                script {
+                    // Run model evaluation script
+                    sh ". venv/bin/activate && python3 backend/model-1/model_evaluation.py"
+                }
+            }
+        }
+        stage('Stage 6 : Unit Testing') {
+            steps {
+                script {
+                    // Run model evaluation script
+                    sh ". venv/bin/activate && pytest backend/model-1/test_model_1.py"
+                }
+            }
+        }
+        
+    }
+}

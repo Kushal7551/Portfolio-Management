@@ -1,0 +1,86 @@
+.live-candle-container {
+  display: flex;
+  flex-direction: row;
+  padding: 0; /* Remove any default padding */
+  margin: 0; /* Remove any default margin */
+  background-color: #f9f9f9;
+  height: 100vh; /* Full height layout */
+}
+
+.SideBar {
+  flex: 0 0 250px; /* Fixed width for the sidebar */
+  background-color: #1e293b; /* Dark sidebar color */
+  color: #fff; /* White text */
+  padding: 20px 0; /* Vertical padding */
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px; /* Add padding only inside the main content */
+  margin: 0; /* Remove margin */
+  background-color: #ffffff; /* White background for content */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dropdown-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdown-label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.dropdown {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.run-model-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.run-model-button:hover {
+  background-color: #45a049;
+}
+
+.chart-container {
+  width: 100%;
+  height: 500px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.stats-container {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stats-container h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.stats-container p {
+  font-size: 16px;
+  margin: 5px 0;
+}

@@ -1,0 +1,10 @@
+No existing weights found. Training from scratch.
+Episode 1/100 complete.
+Episode 2/100 complete.
+Episode 3/100 complete.
+Episode 4/100 complete.
+Episode 5/100 complete.
+Episode 6/100 complete.
+Episode 7/100 complete.
+Episode 8/100 complete.
+Episode 9/100 complete.

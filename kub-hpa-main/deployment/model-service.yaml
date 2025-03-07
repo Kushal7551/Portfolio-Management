@@ -1,0 +1,15 @@
+# service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-model-service
+spec:
+  type: NodePort
+  selector:
+    app: my-model
+  ports:
+    - protocol: TCP
+      port: 4000
+      targetPort: 4000
+      nodePort: 30009

@@ -1,0 +1,72 @@
+pipeline {
+    environment {
+        DOCKERHUB_CRED = credentials("DockerSid")
+    }
+    agent any
+    tools {nodejs "NODEJS"} 
+    stages {
+        stage("Git Clone") {
+            steps {
+                git credentialsId: 'GitHubSid', url: 'https://github.com/SiddharthChauhan303/SPE-Project-kub-hpa.git', branch: 'main'
+            }
+        }
+
+        stage("Backend Testing") {
+            steps {
+                sh '''
+                npm install jest --save-dev
+                cd backend
+                npm install
+                '''
+                // npm test
+                // '''
+            }
+        }
+
+        // stage("Frontend Testing") {
+        //     steps {
+        //         sh '''
+        //         cd frontend
+        //         npm install
+        //         '''
+        //     }
+        // }
+
+        // stage("Creating Docker Image for frontend") {
+        //     steps {
+        //         sh '''
+        //         cd frontend
+        //         ls
+        //         docker build -t kushal7551/frontend:latest .
+        //         '''
+        //     }
+        // }
+
+        stage("Creating Docker Image for backend") {
+            steps {
+                sh '''
+                cd backend
+                docker build -t siddharth303/backend_jenkins:latest .
+                '''
+            }
+        }
+
+        // stage("Push Frontend Docker Image") {
+        //     steps {
+        //         sh '''
+        //         /usr/local/bin/docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
+        //         /usr/local/bin/docker push siddharth303/frontend:latest
+        //         '''
+        //     }
+        // }
+
+        stage("Push Backend Docker Image") {
+            steps {
+                sh '''
+                docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
+                docker push siddharth303/backend_jenkins:latest
+                '''
+            }
+        }
+    }
+}

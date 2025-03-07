@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-node-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-node-backend
+  template:
+    metadata:
+      labels:
+        app: my-node-backend
+    spec:
+      containers:
+        - name: my-node-backend
+          image: siddharth303/backendk:latest
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "1Gi" # Request 256 MB of memory
+            limits:
+              memory: "1Gi" # Limit to 512 MB of memory
+                 # Path inside the container
+      # volumes:
+      #   - name: shared-dataset
+      #     hostPath:
+      #       path: /host/path/to/shared-dataset  # Replace with the actual path on the Kubernetes node
+      #       type: DirectoryOrCreate 

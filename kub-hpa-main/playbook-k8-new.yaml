@@ -1,0 +1,21 @@
+- name: Deploying with Kubernetes
+  hosts: all
+  become: true
+  tasks:
+    - name: Show ansible_user
+      debug:
+        msg: "The ansible_user is {{ ansible_user }}"
+    - name: Add directory to Git's safe list
+      ansible.builtin.command:
+        cmd: git config --global --add safe.directory /tmp/SPE-Project-kub-hpa
+    - name: Clone the repository
+      git:
+        repo: https://github.com/SiddharthChauhan303/SPE-Project-kub-hpa.git
+        dest: /tmp/SPE-Project-kub-hpa
+    # - name: Delete
+      # command: export KUBECONFIG=~/.kube/config
+    - name: Apply Kubernetes Deployment
+      ansible.builtin.command:
+        cmd: kubectl apply -f /tmp/SPE-Project-kub-hpa/deployment --insecure-skip-tls-verify
+    # - name: 
+      # command: sudo minikube status

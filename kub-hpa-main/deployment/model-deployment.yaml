@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-model
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-model
+  template:
+    metadata:
+      labels:
+        app: my-model
+    spec:
+      containers:
+        - name: my-model
+          image: siddharth303/modelk:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+          resources:
+            requests:
+              memory: "1Gi" # Request 256 MB of memory
+            limits:
+              memory: "1Gi" # Limit to 512 MB of memory

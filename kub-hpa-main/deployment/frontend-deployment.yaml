@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-react-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-react-app
+  template:
+    metadata:
+      labels:
+        app: my-react-app
+    spec:
+      containers:
+        - name: my-react-app
+          image: siddharth303/frontendk:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5173
+          resources:
+            requests:
+              memory: "1Gi" # Request 256 megabytes of memory
+            limits:
+              memory: "1Gi" # Limit to 512 megabytes of memory

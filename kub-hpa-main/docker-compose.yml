@@ -1,0 +1,47 @@
+version: '3.7'
+
+services:
+  server:
+    image: siddharth303/backend-final:latest
+    container_name: myapp-node-server
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - MODEL_HOST=myapp-model
+      - MODEL_PORT=4000
+    networks:
+      - app-network
+    depends_on:
+      - model
+    volumes:
+      - shared-dataset:/app/dataset
+    # Uncomment the line below if you want to map a local dataset directory
+    # - ./dataset:/app/dataset
+
+  client:
+    image: siddharth303/frontend:latest
+    container_name: myapp-react-client
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+
+  model:
+    image: siddharth303/model:latest
+    container_name: myapp-model
+    ports:
+      - "4000:4000"
+    networks:
+      - app-network
+    volumes:
+      - shared-dataset:/app/dataset
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  shared-dataset:
